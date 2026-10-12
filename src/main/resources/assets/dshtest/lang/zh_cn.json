@@ -1,0 +1,25 @@
+{
+  "itemGroup.dshtest": "DSH 测试标签页",
+  "block.dshtest.example_block": "示例方块",
+  "item.dshtest.example_item": "示例物品",
+
+  "key.categories.dshtest": "DSH 测试",
+  "key.dshtest.open_weather_time": "打开天气/时间界面",
+
+  "dshtest.screen.weather_time.title": "天气与时间",
+  "dshtest.screen.current_time": "时间：%s",
+  "dshtest.slider.time": "时间：%s",
+  "dshtest.button.set_time": "设置时间",
+  "dshtest.button.weather_clear": "晴天",
+  "dshtest.button.weather_rain": "下雨",
+  "dshtest.button.weather_thunder": "雷暴",
+  "dshtest.message.no_permission": "你没有修改天气或时间的权限。",
+
+  "dshtest.configuration.title": "DSH 测试配置",
+  "dshtest.configuration.section.dshtest.common.toml": "DSH 测试配置",
+  "dshtest.configuration.section.dshtest.common.toml.title": "DSH 测试配置",
+  "dshtest.configuration.items": "物品列表",
+  "dshtest.configuration.logDirtBlock": "记录泥土方块",
+  "dshtest.configuration.magicNumberIntroduction": "魔法数字提示文字",
+  "dshtest.configuration.magicNumber": "魔法数字"
+}

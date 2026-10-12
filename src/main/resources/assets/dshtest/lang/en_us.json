@@ -3,6 +3,18 @@
   "block.dshtest.example_block": "Example Block",
   "item.dshtest.example_item": "Example Item",
 
+  "key.categories.dshtest": "DSH Test",
+  "key.dshtest.open_weather_time": "Open Weather / Time Screen",
+
+  "dshtest.screen.weather_time.title": "Weather & Time",
+  "dshtest.screen.current_time": "Time: %s",
+  "dshtest.slider.time": "Time: %s",
+  "dshtest.button.set_time": "Set Time",
+  "dshtest.button.weather_clear": "Clear",
+  "dshtest.button.weather_rain": "Rain",
+  "dshtest.button.weather_thunder": "Thunder",
+  "dshtest.message.no_permission": "You do not have permission to change the weather or time.",
+
   "dshtest.configuration.title": "DSH Test Configs",
   "dshtest.configuration.section.dshtest.common.toml": "DSH Test Configs",
   "dshtest.configuration.section.dshtest.common.toml.title": "DSH Test Configs",

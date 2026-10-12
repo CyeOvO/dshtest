@@ -33,6 +33,25 @@ This is a NeoForge test mod, used to verify the mod development environment.
 3. Drop the jar into your `.minecraft/mods` folder.
 4. Launch the game with the NeoForge profile.
 
+## Features
+
+### Weather & Time control screen
+
+Press **`X`** in-game to open the control screen. From there you can:
+
+- **Set the time of day** with a slider (shows the clock time, e.g. `06:00`),
+  then press *Set Time* to apply it.
+- **Change the weather** to Clear, Rain, or Thunder for 10 in-game minutes.
+
+The key can be rebound in **Options → Controls → DSH Test**.
+
+> **Note:** Weather and time are controlled by the server, so the screen sends a
+> request to the server rather than changing anything locally. Changing them
+> requires **permission level 2** — the same level the vanilla `/weather` and
+> `/time` commands need. In singleplayer you always have it; on a multiplayer
+> server you need to be an operator. Without permission the mod replies with a
+> chat message instead of silently doing nothing.
+
 ## Building from source
 
 ```bash

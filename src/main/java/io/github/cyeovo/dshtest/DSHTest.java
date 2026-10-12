@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
+import io.github.cyeovo.dshtest.network.WeatherTimeHandler;
+import io.github.cyeovo.dshtest.network.WeatherTimePayload;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -26,6 +28,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -87,6 +90,20 @@ public class DSHTest {
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        // Register the network payload used by the weather/time screen
+        modEventBus.addListener(this::registerPayloads);
+    }
+
+    /**
+     * Registers the client -&gt; server payload the weather/time screen sends when
+     * the player changes the weather or the time.
+     */
+    private void registerPayloads(RegisterPayloadHandlersEvent event) {
+        event.registrar("1").playToServer(
+                WeatherTimePayload.TYPE,
+                WeatherTimePayload.STREAM_CODEC,
+                WeatherTimeHandler::handle);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
