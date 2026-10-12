@@ -23,3 +23,18 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+
+      - name: Show the built jar
+        run: ls -la build/libs
+
+      # Makes the jar downloadable from the Actions run page, which is handy for
+      # testing a build before tagging a release.
+      - name: Upload mod jar as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mod-jar
+          path: |
+            build/libs/*.jar
+            !build/libs/*-sources.jar
+            !build/libs/*-javadoc.jar
+          if-no-files-found: error

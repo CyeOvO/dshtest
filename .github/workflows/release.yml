@@ -1,0 +1,72 @@
+name: Release
+
+# Publishes a GitHub Release with the built mod jar whenever a version tag is
+# pushed, e.g.:
+#     git tag v1.0.0
+#     git push origin v1.0.0
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Locate the built mod jar
+        id: jar
+        run: |
+          # Exclude the -sources and -javadoc jars; keep only the mod itself.
+          JAR=$(ls build/libs/*.jar | grep -v -- '-sources' | grep -v -- '-javadoc' | head -n 1)
+          if [ -z "$JAR" ]; then
+            echo "No mod jar found in build/libs" >&2
+            ls -la build/libs >&2
+            exit 1
+          fi
+          echo "Found mod jar: $JAR"
+          echo "path=$JAR" >> "$GITHUB_OUTPUT"
+          echo "name=$(basename "$JAR")" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.jar.outputs.path }}
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          body: |
+            ## DSH Test ${{ github.ref_name }}
+
+            ### Requirements
+            - Minecraft **1.21.1**
+            - NeoForge **21.1.259** or newer
+            - Java **21**
+
+            ### Installation
+            1. Install [NeoForge](https://neoforged.net/) for Minecraft 1.21.1.
+            2. Download `${{ steps.jar.outputs.name }}` below.
+            3. Put it in your `.minecraft/mods` folder.
+            4. Launch the game with the NeoForge profile.
+
+            > The `-sources` and `-javadoc` jars are not included; use the file above.
