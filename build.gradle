@@ -41,6 +41,20 @@ neoForge {
     // Specify the version of NeoForge to use.
     version = project.neo_version
 
+    // Print the full diagnostics from the Minecraft recompilation step.
+    // Without this, a failing javac only logs "ERROR ... null".
+    // Can also be set with -PneoForge.neoFormRuntime.verbose=true
+    neoFormRuntime {
+        verbose = true
+
+        // Work around a javac failure in the recompilation step on this machine:
+        //   ERROR Line: 1, error while writing net.minecraft.world.ticks.package-info: null
+        // javac aborts writing package-info.class into NFRT's in-memory output jar
+        // filesystem. The Eclipse compiler (ECJ) writes the same classes without
+        // that failure, so use it for compiling Minecraft here.
+        useEclipseCompiler = true
+    }
+
     parchment {
         mappingsVersion = project.parchment_mappings_version
         minecraftVersion = project.parchment_minecraft_version
@@ -179,6 +193,14 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+// This machine's default locale is zh-CN / code page 936 (GBK). Any JVM that the
+// NeoForge toolchain forks (recompile, runClient, runServer, datagen) must be told
+// to use UTF-8, otherwise it misreads the UTF-8 sources and fails.
+tasks.withType(JavaExec).configureEach {
+    jvmArgs '-Dfile.encoding=UTF-8', '-Dsun.jnu.encoding=UTF-8',
+            '-Duser.language=en', '-Duser.country=US'
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
