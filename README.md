@@ -1,5 +1,7 @@
 # DSH Test
 
+**English** | [简体中文](README.zh-CN.md)
+
 A NeoForge mod for Minecraft **1.21.1**.
 
 [![Build](https://github.com/CyeOvO/dshtest/actions/workflows/build.yml/badge.svg)](https://github.com/CyeOvO/dshtest/actions/workflows/build.yml)
@@ -8,8 +10,8 @@ A NeoForge mod for Minecraft **1.21.1**.
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-brightgreen)
 ![NeoForge](https://img.shields.io/badge/NeoForge-21.1.259-orange)
 
-<!-- Replace this line with a one-sentence pitch once the mod does something specific. -->
-This is a NeoForge test mod, used to verify the mod development environment.
+A small NeoForge mod that adds an in-game screen for changing the world time
+and weather.
 
 ---
 
@@ -52,6 +54,11 @@ The key can be rebound in **Options → Controls → DSH Test**.
 > server you need to be an operator. Without permission the mod replies with a
 > chat message instead of silently doing nothing.
 
+### Languages
+
+The interface ships in English and Simplified Chinese, and follows your game
+language setting.
+
 ## Building from source
 
 ```bash
@@ -78,10 +85,18 @@ gradlew.bat runClient     # Windows
 
 ```
 src/main/java/io/github/cyeovo/dshtest/
-├── DSHTest.java            main @Mod entry point
-├── DSHTestClient.java      client-only setup
-└── Config.java             mod configuration
-src/main/resources/assets/dshtest/lang/en_us.json
+├── DSHTest.java                  main @Mod entry point, payload registration
+├── DSHTestClient.java            client-only setup
+├── Config.java                   mod configuration
+├── client/
+│   ├── DSHTestKeybinds.java      the X key binding
+│   └── WeatherTimeScreen.java    the control screen
+└── network/
+    ├── WeatherTimePayload.java   client -> server request
+    └── WeatherTimeHandler.java   applies the change on the server
+src/main/resources/assets/dshtest/lang/
+├── en_us.json
+└── zh_cn.json
 src/main/templates/META-INF/neoforge.mods.toml
 ```
 

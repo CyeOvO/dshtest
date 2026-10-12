@@ -58,15 +58,21 @@ jobs:
           body: |
             ## DSH Test ${{ github.ref_name }}
 
-            ### Requirements
+            ### Requirements / 环境要求
             - Minecraft **1.21.1**
-            - NeoForge **21.1.259** or newer
+            - NeoForge **21.1.259** or newer / 或更高
             - Java **21**
 
-            ### Installation
-            1. Install [NeoForge](https://neoforged.net/) for Minecraft 1.21.1.
-            2. Download `${{ steps.jar.outputs.name }}` below.
-            3. Put it in your `.minecraft/mods` folder.
-            4. Launch the game with the NeoForge profile.
+            ### Installation / 安装方法
+            1. Install [NeoForge](https://neoforged.net/) for Minecraft 1.21.1. /
+               为 Minecraft 1.21.1 安装 NeoForge。
+            2. Download `${{ steps.jar.outputs.name }}` below. / 下载下方的
+               `${{ steps.jar.outputs.name }}`。
+            3. Put it in your `.minecraft/mods` folder. / 放进 `.minecraft/mods` 文件夹。
+            4. Launch the game with the NeoForge profile. / 用 NeoForge 配置启动游戏。
+
+            Press **X** in-game to open the weather / time screen. /
+            游戏中按 **X** 键打开天气与时间界面。
 
             > The `-sources` and `-javadoc` jars are not included; use the file above.
+            > 不包含 `-sources` 和 `-javadoc` jar，请使用上面的文件。
