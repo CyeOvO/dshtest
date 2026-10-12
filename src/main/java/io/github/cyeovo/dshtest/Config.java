@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package io.github.cyeovo.dshtest;
 
 import java.util.List;
 import java.util.Set;

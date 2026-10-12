@@ -1,0 +1,13 @@
+{
+  "itemGroup.dshtest": "DSH Test Tab",
+  "block.dshtest.example_block": "Example Block",
+  "item.dshtest.example_item": "Example Item",
+
+  "dshtest.configuration.title": "DSH Test Configs",
+  "dshtest.configuration.section.dshtest.common.toml": "DSH Test Configs",
+  "dshtest.configuration.section.dshtest.common.toml.title": "DSH Test Configs",
+  "dshtest.configuration.items": "Item List",
+  "dshtest.configuration.logDirtBlock": "Log Dirt Block",
+  "dshtest.configuration.magicNumberIntroduction": "Magic Number Text",
+  "dshtest.configuration.magicNumber": "Magic Number"
+}
