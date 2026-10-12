@@ -36,14 +36,8 @@ git commit -m "你的改动说明"
 git push
 ```
 
-如果 `git push` 提示要用户名密码，说明 `gh` 的凭据没被用上，改用：
-
-```bat
-gh auth token > %TEMP%\t.txt
-git push https://x-access-token:%TEMP%\...  rem main
-```
-
-更简单的办法：把 token 设进环境变量后推送
+如果 `git push` 提示要用户名密码，说明 `gh` 的凭据没被用上，改用下面这条
+（把 token 临时设进环境变量，不写入任何文件）：
 
 ```bat
 for /f %i in ('gh auth token') do set GH_TOKEN=%i
@@ -52,6 +46,42 @@ git push https://x-access-token:%GH_TOKEN%@github.com/CyeOvO/dshtest.git main
 
 > 注意：`gh` 的 OAuth token 目前包含 `repo` 和 `workflow` 两个权限。
 > `workflow` 是推送 `.github/workflows/` 里的自动构建配置所必需的。
+
+---
+
+## 零之二、发布新版本
+
+发布流程已经自动化：**打一个 tag 并推送，GitHub 自动构建、建 Release、附上 jar。**
+
+```bat
+git tag -a v1.0.1 -m "DSH Test 1.0.1"
+git push origin v1.0.1
+```
+
+等 1~2 分钟，Release 会出现在
+https://github.com/CyeOvO/dshtest/releases
+
+**版本号怎么定**（`gradle.properties` 里的 `mod_version` 与 tag 要对应）：
+
+| 改动性质 | 版本号 | 示例 |
+|---|---|---|
+| 修 bug | 第三位 +1 | `1.0.0` → `1.0.1` |
+| 加功能 | 第二位 +1 | `1.0.0` → `1.1.0` |
+| 不兼容改动 | 第一位 +1 | `1.0.0` → `2.0.0` |
+
+发版前记得先把 `gradle.properties` 的 `mod_version` 改成对应版本并提交，
+否则 jar 内部的版本号会和 tag 对不上。
+
+**带 `-` 的 tag 会自动标记为预发布**，例如 `v1.1.0-beta.1`。
+
+### 两条自动流程
+
+| 工作流 | 触发条件 | 做什么 |
+|---|---|---|
+| `build.yml` | push / PR | 编译并验证，jar 可在 Actions 页面下载 |
+| `release.yml` | 推送 `v*` tag | 编译 + 创建 Release + 附上 jar |
+
+发布状态标记在 README 顶部，会自动更新。
 
 ---
 

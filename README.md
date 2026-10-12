@@ -2,10 +2,21 @@
 
 A NeoForge mod for Minecraft **1.21.1**.
 
+[![Build](https://github.com/CyeOvO/dshtest/actions/workflows/build.yml/badge.svg)](https://github.com/CyeOvO/dshtest/actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/v/release/CyeOvO/dshtest)](https://github.com/CyeOvO/dshtest/releases/latest)
+[![License](https://img.shields.io/github/license/CyeOvO/dshtest)](LICENSE)
+![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-brightgreen)
+![NeoForge](https://img.shields.io/badge/NeoForge-21.1.259-orange)
+
 <!-- Replace this line with a one-sentence pitch once the mod does something specific. -->
 This is a NeoForge test mod, used to verify the mod development environment.
 
 ---
+
+## Download
+
+**[⬇ Latest release](https://github.com/CyeOvO/dshtest/releases/latest)** — grab the
+`dshtest-<version>.jar` file from the Assets section.
 
 ## Requirements
 
