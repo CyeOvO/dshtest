@@ -4,7 +4,54 @@ Minecraft **1.21.1** / NeoForge **21.1.259** 的 Java 模组项目，基于官�
 [NeoForge MDK](https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle)（ModDevGradle 变体）生成，
 并已针对这台机器的具体情况配置好。
 
-首次构建已通过：产出的模组 jar 在 `build/libs/examplemod-1.0.0.jar`。
+- 模组：**DSH Test**（mod_id `dshtest`）
+- GitHub 仓库：**https://github.com/CyeOvO/dshtest**
+- 构建产物：`build/libs/dshtest-1.0.0.jar`
+
+---
+
+## 零、推送到 GitHub
+
+仓库已建好并关联：
+
+```
+origin    https://github.com/CyeOvO/dshtest.git          ← 你的仓库
+upstream  https://github.com/NeoForgeMDKs/MDK-...git     ← MDK 模板（可忽略）
+```
+
+Git 凭据没有写入明文文件，而是由 `gh` 保存。登录状态放在工作区内：
+
+```
+GH_CONFIG_DIR=D:\DSH\gh-config
+```
+
+**推送步骤**（在项目目录）：
+
+```bat
+set GH_CONFIG_DIR=D:\DSH\gh-config
+set HTTPS_PROXY=http://127.0.0.1:7890
+
+git add -A
+git commit -m "你的改动说明"
+git push
+```
+
+如果 `git push` 提示要用户名密码，说明 `gh` 的凭据没被用上，改用：
+
+```bat
+gh auth token > %TEMP%\t.txt
+git push https://x-access-token:%TEMP%\...  rem main
+```
+
+更简单的办法：把 token 设进环境变量后推送
+
+```bat
+for /f %i in ('gh auth token') do set GH_TOKEN=%i
+git push https://x-access-token:%GH_TOKEN%@github.com/CyeOvO/dshtest.git main
+```
+
+> 注意：`gh` 的 OAuth token 目前包含 `repo` 和 `workflow` 两个权限。
+> `workflow` 是推送 `.github/workflows/` 里的自动构建配置所必需的。
 
 ---
 
