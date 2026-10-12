@@ -113,6 +113,10 @@ src/main/templates/META-INF/neoforge.mods.toml
 
 [MIT](LICENSE) © CyeOvO
 
+本项目基于官方 [NeoForge MDK](https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle)
+生成。模板自带文件（`build.gradle`、`settings.gradle`、`gradlew`、`.gitignore` 等）
+仍适用其原有许可：MIT © 2023 NeoForged project。
+
 ---
 
 Minecraft 是 Mojang Synergies AB 的商标。本项目与 Mojang 或 Microsoft 无隶属

@@ -1,5 +1,6 @@
 package io.github.cyeovo.dshtest.network;
 
+import io.github.cyeovo.dshtest.Config;
 import io.github.cyeovo.dshtest.DSHTest;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -34,17 +35,34 @@ public final class WeatherTimeHandler {
         }
 
         ServerLevel level = player.server.overworld();
+        int duration = clampWeatherDuration(payload.value());
 
         switch (payload.action()) {
             case SET_TIME -> setTime(level, payload.value());
             case ADD_TIME -> addTime(level, payload.value());
-            case WEATHER_CLEAR -> level.setWeatherParameters(payload.value(), 0, false, false);
-            case WEATHER_RAIN -> level.setWeatherParameters(0, payload.value(), true, false);
-            case WEATHER_THUNDER -> level.setWeatherParameters(0, payload.value(), true, true);
+            case WEATHER_CLEAR -> level.setWeatherParameters(duration, 0, false, false);
+            case WEATHER_RAIN -> level.setWeatherParameters(0, duration, true, false);
+            case WEATHER_THUNDER -> level.setWeatherParameters(0, duration, true, true);
         }
 
-        DSHTest.LOGGER.debug("dshtest: {} applied by {} (value {})",
-                payload.action(), player.getName().getString(), payload.value());
+        if (Config.LOG_CHANGES.getAsBoolean()) {
+            DSHTest.LOGGER.info("dshtest: {} applied by {} (value {})",
+                    payload.action(), player.getName().getString(), payload.value());
+        }
+    }
+
+    /**
+     * Turns a requested weather duration into the value actually applied.
+     * <p>
+     * The client sends a nominal duration; the server clamps it to the range
+     * configured by the operator, so a modified client cannot set an absurd
+     * weather duration.
+     */
+    private static int clampWeatherDuration(int requested) {
+        int configured = Config.WEATHER_DURATION_TICKS.getAsInt();
+        // Negative values would mean "keep the current weather" to vanilla, which
+        // is not something this screen offers, so treat anything <= 0 as the default.
+        return requested <= 0 ? configured : Math.min(requested, configured);
     }
 
     /**

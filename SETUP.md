@@ -194,13 +194,23 @@ neoforge-mod/
 ├── gradle.properties            mod id / 名称 / 版本 / 包名
 ├── settings.gradle
 ├── dev.bat                      便捷启动脚本（环境变量都在这）
+├── README.md                    中文说明（仓库首页）
+├── README.en-US.md              英文说明
 ├── SETUP.md                     本文件
 └── src/main/
-    ├── java/com/example/examplemod/
-    │   ├── ExampleMod.java          主 @Mod 类 + 示例方块/物品/创造模式标签页
-    │   ├── ExampleModClient.java    仅客户端逻辑
-    │   └── Config.java              示例配置项
-    ├── resources/assets/examplemod/lang/en_us.json
+    ├── java/io/github/cyeovo/dshtest/
+    │   ├── DSHTest.java              主 @Mod 类 + 网络包注册
+    │   ├── DSHTestClient.java        仅客户端初始化
+    │   ├── Config.java               配置项
+    │   ├── client/
+    │   │   ├── DSHTestKeybinds.java  X 键按键绑定
+    │   │   └── WeatherTimeScreen.java 天气/时间控制界面
+    │   └── network/
+    │       ├── WeatherTimePayload.java  客户端 -> 服务端请求
+    │       └── WeatherTimeHandler.java  服务端执行修改
+    ├── resources/assets/dshtest/lang/
+    │   ├── en_us.json
+    │   └── zh_cn.json
     └── templates/META-INF/neoforge.mods.toml   模组元数据（构建时填充变量）
 ```
 
@@ -208,17 +218,35 @@ neoforge-mod/
 
 ---
 
-## 六、改成你自己的模组
+## 六、二次开发注意事项
 
-模板目前叫 `examplemod`。改名时以下几处要**保持一致**：
+模组已从模板改名完毕，现在是 `dshtest`。
 
-1. `gradle.properties` → `mod_id`、`mod_name`、`mod_group_id`、`mod_authors`、`mod_license`
-2. `ExampleMod.java` → `MODID` 常量 **和** `@Mod(...)` 注解
-3. 目录 `src/main/java/com/example/examplemod/` → 你自己的包名
-4. 目录 `src/main/resources/assets/examplemod/` → `assets/<你的mod_id>/`
+**新增方块/物品时**，光注册 Java 类不够，还要补资源文件，否则游戏日志会刷
+`Unable to load model` 警告：
+
+```
+src/main/resources/assets/dshtest/
+├── blockstates/<名字>.json     方块状态
+├── models/block/<名字>.json    方块模型
+├── models/item/<名字>.json     物品模型
+└── textures/block|item/<名字>.png
+```
+
+**改 `mod_id` 要同步的地方**（已经改好了，列出来是备查）：
+
+1. `gradle.properties` → `mod_id`
+2. `DSHTest.java` → `MODID` 常量 **和** `@Mod(...)` 注解
+3. 目录 `src/main/java/<包名>/` → 你自己的包名
+4. 目录 `src/main/resources/assets/<mod_id>/`
 5. `build.gradle` 不用改，它全部从 `gradle.properties` 读取
+6. 语言文件里的 `key.categories.<mod_id>` 等键名
 
-`mod_id` 必须是小写，且上述各处完全一致。
+`mod_id` 必须是小写，且上述各处完全一致。**已发布的模组不要再改 `mod_id`**，
+否则老存档会认不出来。
+
+**给界面加翻译**：`assets/dshtest/lang/` 下每个语言一个 json，键名要和代码里
+`Component.translatable("...")` 的字符串一致。
 
 ---
 

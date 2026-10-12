@@ -117,6 +117,12 @@ including why the Eclipse compiler is used for Minecraft recompilation.
 
 [MIT](LICENSE) © CyeOvO
 
+This project was generated from the official
+[NeoForge MDK](https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle). The files
+supplied by that template (`build.gradle`, `settings.gradle`, `gradlew`,
+`.gitignore`, and similar) remain under their original license:
+MIT © 2023 NeoForged project.
+
 ---
 
 Minecraft is a trademark of Mojang Synergies AB. This project is not affiliated

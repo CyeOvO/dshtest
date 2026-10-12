@@ -1,8 +1,4 @@
 {
-  "itemGroup.dshtest": "DSH Test Tab",
-  "block.dshtest.example_block": "Example Block",
-  "item.dshtest.example_item": "Example Item",
-
   "key.categories.dshtest": "DSH Test",
   "key.dshtest.open_weather_time": "Open Weather / Time Screen",
 
@@ -18,8 +14,6 @@
   "dshtest.configuration.title": "DSH Test Configs",
   "dshtest.configuration.section.dshtest.common.toml": "DSH Test Configs",
   "dshtest.configuration.section.dshtest.common.toml.title": "DSH Test Configs",
-  "dshtest.configuration.items": "Item List",
-  "dshtest.configuration.logDirtBlock": "Log Dirt Block",
-  "dshtest.configuration.magicNumberIntroduction": "Magic Number Text",
-  "dshtest.configuration.magicNumber": "Magic Number"
+  "dshtest.configuration.weatherDurationTicks": "Weather Duration (ticks)",
+  "dshtest.configuration.logChanges": "Log Weather/Time Changes"
 }

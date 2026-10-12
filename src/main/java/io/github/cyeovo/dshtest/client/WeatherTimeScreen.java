@@ -24,8 +24,13 @@ public class WeatherTimeScreen extends Screen {
     /** Minecraft daytime runs from 0 to 23999 ticks (one full day). */
     private static final int TICKS_PER_DAY = 24000;
 
-    /** Default duration (in ticks) used by the weather buttons: 10 minutes. */
-    private static final int DEFAULT_WEATHER_DURATION = 12000;
+    /**
+     * Nominal weather duration (in ticks) the buttons request: 10 minutes.
+     * <p>
+     * This is only a request. The server clamps it to the
+     * {@code weatherDurationTicks} config value, so operators can shorten it.
+     */
+    private static final int REQUESTED_WEATHER_DURATION = 12000;
 
     private static final int WIDGET_WIDTH = 200;
 
@@ -70,20 +75,20 @@ public class WeatherTimeScreen extends Screen {
 
         this.addRenderableWidget(Button.builder(
                         Component.translatable("dshtest.button.weather_clear"),
-                        button -> send(WeatherTimePayload.Action.WEATHER_CLEAR, DEFAULT_WEATHER_DURATION))
+                        button -> send(WeatherTimePayload.Action.WEATHER_CLEAR, REQUESTED_WEATHER_DURATION))
                 .bounds(left, y, halfWidth, 20)
                 .build());
 
         this.addRenderableWidget(Button.builder(
                         Component.translatable("dshtest.button.weather_rain"),
-                        button -> send(WeatherTimePayload.Action.WEATHER_RAIN, DEFAULT_WEATHER_DURATION))
+                        button -> send(WeatherTimePayload.Action.WEATHER_RAIN, REQUESTED_WEATHER_DURATION))
                 .bounds(left + halfWidth + 4, y, halfWidth, 20)
                 .build());
 
         y += 24;
         this.addRenderableWidget(Button.builder(
                         Component.translatable("dshtest.button.weather_thunder"),
-                        button -> send(WeatherTimePayload.Action.WEATHER_THUNDER, DEFAULT_WEATHER_DURATION))
+                        button -> send(WeatherTimePayload.Action.WEATHER_THUNDER, REQUESTED_WEATHER_DURATION))
                 .bounds(left, y, WIDGET_WIDTH, 20)
                 .build());
 
