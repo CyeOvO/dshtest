@@ -1,65 +1,61 @@
 # DSH Test
 
-**English** | [简体中文](README.zh-CN.md)
+**简体中文** | [English](README.en-US.md)
 
-A NeoForge mod for Minecraft **1.21.1**.
+一个面向 Minecraft **1.21.1** 的 NeoForge 模组。
 
-[![Build](https://github.com/CyeOvO/dshtest/actions/workflows/build.yml/badge.svg)](https://github.com/CyeOvO/dshtest/actions/workflows/build.yml)
-[![Release](https://img.shields.io/github/v/release/CyeOvO/dshtest)](https://github.com/CyeOvO/dshtest/releases/latest)
-[![License](https://img.shields.io/github/license/CyeOvO/dshtest)](LICENSE)
+[![构建状态](https://github.com/CyeOvO/dshtest/actions/workflows/build.yml/badge.svg)](https://github.com/CyeOvO/dshtest/actions/workflows/build.yml)
+[![最新版本](https://img.shields.io/github/v/release/CyeOvO/dshtest)](https://github.com/CyeOvO/dshtest/releases/latest)
+[![许可证](https://img.shields.io/github/license/CyeOvO/dshtest)](LICENSE)
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-brightgreen)
 ![NeoForge](https://img.shields.io/badge/NeoForge-21.1.259-orange)
 
-A small NeoForge mod that adds an in-game screen for changing the world time
-and weather.
+一个小型 NeoForge 模组，提供游戏内界面用于修改世界的时间和天气。
 
 ---
 
-## Download
+## 下载
 
-**[⬇ Latest release](https://github.com/CyeOvO/dshtest/releases/latest)** — grab the
-`dshtest-<version>.jar` file from the Assets section.
+**[⬇ 最新版本](https://github.com/CyeOvO/dshtest/releases/latest)** — 在 Assets 区域下载
+`dshtest-<版本号>.jar`。
 
-## Requirements
+## 环境要求
 
-| | Version |
+| | 版本 |
 |---|---|
 | Minecraft | 1.21.1 |
-| NeoForge | 21.1.259 or newer |
+| NeoForge | 21.1.259 或更高 |
 | Java | 21 |
 
-## Installation
+## 安装方法
 
-1. Install [NeoForge](https://neoforged.net/) for Minecraft 1.21.1.
-2. Download the latest `dshtest-<version>.jar` from the [Releases](../../releases) page.
-3. Drop the jar into your `.minecraft/mods` folder.
-4. Launch the game with the NeoForge profile.
+1. 为 Minecraft 1.21.1 安装 [NeoForge](https://neoforged.net/)。
+2. 在 [Releases](../../releases) 页面下载最新的 `dshtest-<版本号>.jar`。
+3. 把 jar 放进 `.minecraft/mods` 文件夹。
+4. 用 NeoForge 配置启动游戏。
 
-## Features
+## 功能
 
-### Weather & Time control screen
+### 天气与时间控制界面
 
-Press **`X`** in-game to open the control screen. From there you can:
+游戏中按 **`X`** 键打开控制界面。在里面可以：
 
-- **Set the time of day** with a slider (shows the clock time, e.g. `06:00`),
-  then press *Set Time* to apply it.
-- **Change the weather** to Clear, Rain, or Thunder for 10 in-game minutes.
+- **设置时间**：拖动滑块选择时刻（界面直接显示 `06:00` 这样的时钟时间），
+  然后点 *Set Time* 生效。
+- **切换天气**：晴天、下雨、雷暴，各持续 10 分钟游戏时间。
 
-The key can be rebound in **Options → Controls → DSH Test**.
+按键可以在 **选项 → 控制 → DSH Test** 里改绑。
 
-> **Note:** Weather and time are controlled by the server, so the screen sends a
-> request to the server rather than changing anything locally. Changing them
-> requires **permission level 2** — the same level the vanilla `/weather` and
-> `/time` commands need. In singleplayer you always have it; on a multiplayer
-> server you need to be an operator. Without permission the mod replies with a
-> chat message instead of silently doing nothing.
+> **说明：** 天气和时间由服务端控制，所以本界面不会在本地直接修改，而是向
+> 服务端发送请求。修改它们需要**权限等级 2**——和原版 `/weather`、`/time`
+> 命令要求的等级相同。单机模式下你始终拥有该权限；联机时你需要是管理员。
+> 权限不足时模组会在聊天栏给出提示，而不是默默失败。
 
-### Languages
+### 语言
 
-The interface ships in English and Simplified Chinese, and follows your game
-language setting.
+界面自带英文和简体中文，会跟随你的游戏语言设置。
 
-## Building from source
+## 从源码构建
 
 ```bash
 git clone https://github.com/CyeOvO/dshtest.git
@@ -72,52 +68,52 @@ gradlew.bat build
 ./gradlew build
 ```
 
-The compiled mod jar is written to `build/libs/`.
+编译好的模组 jar 会输出到 `build/libs/`。
 
-To launch a development client with the mod loaded:
+启动一个已加载本模组的开发客户端：
 
 ```bash
 gradlew.bat runClient     # Windows
 ./gradlew runClient       # macOS / Linux
 ```
 
-## Project layout
+## 项目结构
 
 ```
 src/main/java/io/github/cyeovo/dshtest/
-├── DSHTest.java                  main @Mod entry point, payload registration
-├── DSHTestClient.java            client-only setup
-├── Config.java                   mod configuration
+├── DSHTest.java                  主 @Mod 入口，网络包注册
+├── DSHTestClient.java            客户端专用初始化
+├── Config.java                   模组配置
 ├── client/
-│   ├── DSHTestKeybinds.java      the X key binding
-│   └── WeatherTimeScreen.java    the control screen
+│   ├── DSHTestKeybinds.java      X 键按键绑定
+│   └── WeatherTimeScreen.java    控制界面
 └── network/
-    ├── WeatherTimePayload.java   client -> server request
-    └── WeatherTimeHandler.java   applies the change on the server
+    ├── WeatherTimePayload.java   客户端 -> 服务端的请求
+    └── WeatherTimeHandler.java   在服务端执行修改
 src/main/resources/assets/dshtest/lang/
 ├── en_us.json
 └── zh_cn.json
 src/main/templates/META-INF/neoforge.mods.toml
 ```
 
-Mod metadata such as name, version, authors and license lives in
-[`gradle.properties`](gradle.properties).
+模组名称、版本、作者、许可证等元数据在
+[`gradle.properties`](gradle.properties) 里。
 
-## Development environment notes
+## 开发环境说明
 
-This project was generated from the official
-[NeoForge MDK](https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle) (ModDevGradle variant).
+本项目基于官方
+[NeoForge MDK](https://github.com/NeoForgeMDKs/MDK-1.21.1-ModDevGradle)（ModDevGradle 变体）生成。
 
-**Windows users on a non-UTF-8 system locale:** the build forces
-`-Dfile.encoding=UTF-8` for all JVMs. Without it, `javac` misreads the UTF-8
-Minecraft sources and fails. See [`SETUP.md`](SETUP.md) for the full rationale,
-including why the Eclipse compiler is used for Minecraft recompilation.
+**系统区域设置为非 UTF-8 的 Windows 用户注意：** 构建会为所有 JVM 强制加上
+`-Dfile.encoding=UTF-8`。否则 `javac` 会错误解析 UTF-8 编码的 Minecraft 源码并
+导致编译失败。完整原因（包括为何重编译 Minecraft 时使用 Eclipse 编译器）见
+[`SETUP.md`](SETUP.md)。
 
-## License
+## 许可证
 
 [MIT](LICENSE) © CyeOvO
 
 ---
 
-Minecraft is a trademark of Mojang Synergies AB. This project is not affiliated
-with or endorsed by Mojang or Microsoft.
+Minecraft 是 Mojang Synergies AB 的商标。本项目与 Mojang 或 Microsoft 无隶属
+关系，也未获得其认可。
